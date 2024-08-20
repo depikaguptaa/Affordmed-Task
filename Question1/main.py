@@ -1,17 +1,21 @@
 from flask import Flask, jsonify
 import requests
 import time
+import json
 from collections import deque
+
+# loading configuration from config.json
+with open('config.json') as config_file:
+    config = json.load(config_file)
 
 app = Flask(__name__)
 
 # configuring url,port,token and timeout
-
-BASE_URL = 'http://20.244.56.144/test'
-PORT = 9876
-WINDOW_SIZE = 10
-TIMEOUT = 0.5  # 500 milliseconds
-AUTH_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNYXBDbGFpbXMiOnsiZXhwIjoxNzI0MTYzOTU2LCJpYXQiOjE3MjQxNjM2NTYsImlzcyI6IkFmZm9yZG1lZCIsImp0aSI6ImY0OTA2NTRjLWE1NjgtNDJhNi1hYzI5LWIwYzBmOWM3ZjA0NiIsInN1YiI6ImRlcGlrYWcyMUBiYmRuaXRtLmFjLmluIn0sImNvbXBhbnlOYW1lIjoiQkJETklUTSIsImNsaWVudElEIjoiZjQ5MDY1NGMtYTU2OC00MmE2LWFjMjktYjBjMGY5YzdmMDQ2IiwiY2xpZW50U2VjcmV0IjoiaWhQaUlDa1FQc3Npd2x4ViIsIm93bmVyTmFtZSI6IkRlcGlrYSBHdXB0YSIsIm93bmVyRW1haWwiOiJkZXBpa2FnMjFAYmJkbml0bS5hYy5pbiIsInJvbGxObyI6IjIxMDA1NDE1MzAwMjYifQ.i5jbnEMZX_rU_j5H5GI98mzF2xbNA6nRUTfVVAQJB3Y'
+BASE_URL = config['BASE_URL']
+PORT = config['PORT']
+WINDOW_SIZE = config['WINDOW_SIZE']
+TIMEOUT = config['TIMEOUT']
+AUTH_TOKEN = config['AUTH_TOKEN']
 
 # using deque
 window = deque(maxlen=WINDOW_SIZE)
